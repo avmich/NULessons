@@ -30,7 +30,8 @@ var convertPitch = function (pitchName) {
 };
 var compile = function (musexpr) {
     var res = flatten(musexpr,0);
-    for(var i=0; i<res.length; ++i) res.pitch = convertPitch(res.pitch);
+    for(var i=0; i<res.length; ++i)
+        if(res[i].pitch) res[i].pitch = convertPitch(res[i].pitch);
     return res;
 };
 var playMUS = function (e) {return playNOTE(compile(e));};

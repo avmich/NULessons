@@ -28,7 +28,11 @@ var convertPitch = function (pitchName) {
     }
     return 12 + 12 * pitchName[1] + letterPitch;
 };
-var compile = function (musexpr) {return flatten(musexpr,0);};
+var compile = function (musexpr) {
+    var res = flatten(musexpr,0);
+    for(var i=0; i<res.length; ++i) res.pitch = convertPitch(res.pitch);
+    return res;
+};
 var playMUS = function (e) {return playNOTE(compile(e));};
 var melody_mus = 
     { tag: 'seq',

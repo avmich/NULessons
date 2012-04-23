@@ -17,7 +17,7 @@ var flatten = function (e,s) {
 };
 var convertPitch = function (pitchName) {
     var letterPitch = 0;
-    switch(pitchName[1]){
+    switch(pitchName[0]){
     case 'c': letterPitch = 0; break;
     case 'd': letterPitch = 2; break;
     case 'e': letterPitch = 4; break;

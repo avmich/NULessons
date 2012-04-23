@@ -3,6 +3,7 @@ var endTime = function (time, expr) {
     if(expr.tag==='seq')return endTime(endTime(time,expr.left),expr.right);
     if(expr.tag==='par')
         return Math.max(endTime(time,expr.left),endTime(time,expr.right));
+    if(expr.tag==='rest')return time+expr.dur;
 };
 var flatten = function (e,s) {
     if(e.tag==='note')return [{tag:'note',pitch:e.pitch,start:s,dur:e.dur}];
@@ -12,6 +13,7 @@ var flatten = function (e,s) {
         return l.concat(flatten(e.right,d));
     }
     if(e.tag==='par')return flatten(e.left,s).concat(flatten(e.right,s));
+    if(e.tag==='rest')return [{tag:'rest',start:s,dur:e.dur}];
 };
 var compile = function (musexpr) {return flatten(musexpr,0);};
 var playMUS = function(e) {return playNOTE(compile(e));};

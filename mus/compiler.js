@@ -15,8 +15,21 @@ var flatten = function (e,s) {
     if(e.tag==='par')return flatten(e.left,s).concat(flatten(e.right,s));
     if(e.tag==='rest')return [{tag:'rest',start:s,dur:e.dur}];
 };
+var convertPitch = function (pitchName) {
+    var letterPitch = 0;
+    switch(pitchName[1]){
+    case 'c': letterPitch = 0; break;
+    case 'd': letterPitch = 2; break;
+    case 'e': letterPitch = 4; break;
+    case 'f': letterPitch = 5; break;
+    case 'g': letterPitch = 7; break;
+    case 'a': letterPitch = 9; break;
+    case 'b': letterPitch = 11; break;
+    }
+    return 12 + 12 * pitchName[1] + letterPitch;
+};
 var compile = function (musexpr) {return flatten(musexpr,0);};
-var playMUS = function(e) {return playNOTE(compile(e));};
+var playMUS = function (e) {return playNOTE(compile(e));};
 var melody_mus = 
     { tag: 'seq',
       left: 
@@ -30,4 +43,3 @@ var melody_mus =
 
 console.log(melody_mus);
 console.log(compile(melody_mus));
-
